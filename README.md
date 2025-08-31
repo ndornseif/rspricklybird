@@ -3,7 +3,8 @@
 ## Overview
 
 This repository contains a rust implementation of the [pricklybird](https://github.com/ndornseif/pricklybird) format version `v1` in the `pricklybirdlib` crate.
-It also provides a command line utility to convert pricklybird strings to binary data and binary data to pricklybird string called `prbiconv`. 
+
+It also provides a command line utility to convert from and to pricklybird strings called `prbiconv`. 
 
 
 ## prbiconv
