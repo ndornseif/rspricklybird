@@ -20,7 +20,7 @@ use crate::constants::{BYTE_WORDLIST, CRC8_TABLE, HASH_TABLE, word_hash};
 use std::fmt;
 
 /// An error occured while trying to decode pricklybird words.
-#[derive(Debug, Clone)]
+#[derive(Clone, Eq, PartialEq, Hash)]
 pub enum DecodeError {
     /// General decoding error
     General(String),
@@ -34,6 +34,13 @@ impl fmt::Display for DecodeError {
             Self::General(msg) => write!(f, "Unable to decode pricklybird words. {msg}"),
             Self::CRCError => write!(f, "Invalid CRC detected."),
         }
+    }
+}
+
+impl fmt::Debug for DecodeError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        // Delegate to Display implementation
+        fmt::Display::fmt(self, f)
     }
 }
 
@@ -164,7 +171,6 @@ pub fn convert_to_pricklybird(data: &[u8]) -> String {
 /// - Words in the input dont appear in the wordlist
 ///
 /// Will return `DecodeError::CRCError` if the CRC value does not match the input.
-///
 ///
 /// # Usage
 /// ```
