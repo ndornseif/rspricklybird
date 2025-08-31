@@ -6,7 +6,9 @@ This repository contains a rust implementation of the [pricklybird](https://gith
 It also provides a command line utility to convert pricklybird strings to binary data and binary data to pricklybird string called `prbiconv`. 
 
 
-## Using prbiconv
+## prbiconv
+
+### Usage
 
 `prbiconv` is a command line utility for conversion that is written in rust and uses `pricklybirdlib` in the background. 
 Input is read from stdin and output written to stdout.
@@ -26,7 +28,16 @@ To convert bytes to a pricklybird string use the `-p` flag.
 flea-flux-full
 ```
 
-## Using pricklybirdlib
+### Building from source
+
+```console
+git clone https://github.com/ndornseif/rspricklybird.git
+cd rspricklybird/prbiconv
+cargo build --release
+```
+## pricklybirdlib
+
+### Usage
 
 ```rust
 use pricklybirdlib::{convert_to_pricklybird, convert_from_pricklybird};
