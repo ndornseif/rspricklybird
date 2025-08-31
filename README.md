@@ -1,7 +1,7 @@
 # rspricklybird
 
 ![GitHub License](https://img.shields.io/github/license/ndornseif/rspricklybird)
-![https://img.shields.io/crates/v/pricklybirdlib](https://crates.io/crates/pricklybirdlib)
+[![Crate]][crates.io]
 
 -----
 
@@ -57,3 +57,6 @@ assert_eq!(vec![0x42, 0x43], recovered_data);
 ## License
 
 `rspricklybird`, `pricklybirdlib` and `prbiconv` are distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+
+[crates.io]: https://crates.io/crates/pricklybirdlib
+[Crate]: https://img.shields.io/crates/v/pricklybirdlib
