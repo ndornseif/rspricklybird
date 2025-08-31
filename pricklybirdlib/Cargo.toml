@@ -4,6 +4,7 @@ version = "1.0.0"
 edition = "2024"
 description = "Library to convert between binary data and pricklybird strings."
 license = "MIT"
+homepage = "https://github.com/ndornseif/rspricklybird/"
 repository = "https://github.com/ndornseif/rspricklybird/"
 readme = "../README.md"
 keywords = ["encoding", "binary-data", "standard"]
