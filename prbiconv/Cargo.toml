@@ -79,4 +79,4 @@ wildcard_dependencies = "warn"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive", "cargo"] }
-pricklybirdlib = { path = "../pricklybirdlib" }
+pricklybirdlib = "1.0.0"
