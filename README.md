@@ -1,7 +1,7 @@
 # rspricklybird
 
 ![GitHub License](https://img.shields.io/github/license/ndornseif/rspricklybird)
-![Crates.io Version](https://img.shields.io/crates/v/pricklybirdlib?link=https%3A%2F%2Fcrates.io%2Fcrates%2Fpricklybirdlib)
+![https://img.shields.io/crates/v/pricklybirdlib](https://crates.io/crates/pricklybirdlib)
 
 -----
 
