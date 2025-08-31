@@ -1,5 +1,10 @@
 # rspricklybird
 
+![GitHub License](https://img.shields.io/github/license/ndornseif/rspricklybird)
+![Crates.io Version](https://img.shields.io/crates/v/pricklybirdlib)
+
+-----
+
 ## Overview
 
 This repository contains a rust implementation of the [pricklybird](https://github.com/ndornseif/pricklybird) format version `v1` in the `pricklybirdlib` crate.
