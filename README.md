@@ -6,11 +6,18 @@
 -----
 
 ## Overview
+[`pricklybird`](https://github.com/ndornseif/pricklybird) is a method for conversion of 
+arbitrary binary data into more human-friendly words, where each word represents a single byte.  
+A CRC-8 checksum is attached to allow the detection of errors during decoding.  
+`0xDEADBEEF` becomes `turf-port-rust-warn-void`, for example.  
 
-This repository contains a rust implementation of the [pricklybird](https://github.com/ndornseif/pricklybird) format version `v1` in the `pricklybirdlib` crate.
+This repository contains `pricklybirdlib`, a rust implementation `pricklybird` version `v1`.
 
 It also provides a command line utility to convert from and to pricklybird strings called `prbiconv`. 
 
+## pricklybirdlib
+
+Find the [README](pricklybirdlib/README.md) here.
 
 ## prbiconv
 
@@ -24,39 +31,27 @@ This can be explicitly set using the `-b` flag.
 We use `xxd` in these examples to convert raw binary to hexadecimal.
 
 ```console
-% echo "flea-flux-full" | prbiconv -b | xxd -ps
+$ echo "flea-flux-full" | prbiconv -b | xxd -ps
 4243
 ```
 
 To convert bytes to a pricklybird string use the `-p` flag.
 ```console
-% echo "4243" | xxd -r -p | prbiconv -p
+$ echo "4243" | xxd -r -p | prbiconv -p
 flea-flux-full
 ```
 
 ### Building from source
 
 ```console
-git clone https://github.com/ndornseif/rspricklybird.git
-cd rspricklybird/prbiconv
-cargo build --release
-```
-## pricklybirdlib
-
-### Usage
-
-```rust
-use pricklybirdlib::{convert_to_pricklybird, convert_from_pricklybird};
-let data = [0x42_u8, 0x43];
-let code = convert_to_pricklybird(&data);
-assert_eq!("flea-flux-full", code);
-let recovered_data = convert_from_pricklybird(&code).unwrap();
-assert_eq!(vec![0x42, 0x43], recovered_data);
+$ git clone https://github.com/ndornseif/rspricklybird.git
+$ cd rspricklybird/prbiconv
+$ cargo build --release
 ```
 
 ## License
 
-`rspricklybird`, `pricklybirdlib` and `prbiconv` are distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`pricklybirdlib` and `prbiconv` are distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
 
 [crates.io]: https://crates.io/crates/pricklybirdlib
 [Crate]: https://img.shields.io/crates/v/pricklybirdlib
