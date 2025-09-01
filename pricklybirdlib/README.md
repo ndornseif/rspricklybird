@@ -40,10 +40,11 @@ since the wordlist contains no non ASCII characters and all words are four lette
 use pricklybirdlib::{words_to_bytes, bytes_to_words};
 let data = [0x42_u8, 0x43];
 let words = bytes_to_words(&data);
- // Notice that no CRC is attached, the bytes represent the words: "flea", "flux"
+// Notice that no CRC is attached, the bytes represent the words: "flea", "flux"
 assert_eq!(vec![[102, 108, 101, 97], [102, 108, 117, 120]], words);
-let data = words_to_bytes(&words).unwrap();
-assert_eq!(vec![0x42, 0x43], data); 
+let word_str = vec!["flea", "flux"];
+let recovered_data = words_to_bytes(&word_str).unwrap();
+assert_eq!(vec![0x42, 0x43], recovered_data); 
 ```
 
 The `constants` module allows direct access to the `WORDLIST` used for 
