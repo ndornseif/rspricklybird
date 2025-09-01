@@ -1,7 +1,6 @@
 //! Convert binary data into a human-friendly format.
 //!
-//! This is the rust reference implementation.
-//! Find the full specification on [github](https://github.com/ndornseif/pricklybird/).
+//! This is a rust implementation of the [pricklybird](https://github.com/ndornseif/pricklybird) format version `v1`.
 //!
 //! # Usage
 //! ```
@@ -18,6 +17,9 @@ pub mod constants;
 
 use crate::constants::{BYTE_WORDLIST, CRC8_TABLE, HASH_TABLE, word_hash};
 use std::fmt;
+
+/// Version of the pricklybird specification that this implementation complies with.
+pub const PRICKLYBIRD_VERSION: &str = "v1";
 
 /// An error occured while trying to decode pricklybird words.
 #[derive(Clone, Eq, PartialEq, Hash)]
@@ -258,7 +260,7 @@ mod pricklybird_tests {
             assert_eq!(
                 words,
                 convert_to_pricklybird(&data),
-                "Failed to convert {:?} test vector to pricklybird",
+                "Failed to convert {:?} test vector to pricklybird.",
                 data
             );
 
@@ -266,7 +268,7 @@ mod pricklybird_tests {
             assert_eq!(
                 data,
                 convert_from_pricklybird(words).unwrap(),
-                "Failed to convert {} test vector to bytes",
+                "Failed to convert {} test vector to bytes.",
                 words
             );
         }
@@ -280,7 +282,7 @@ mod pricklybird_tests {
         assert_eq!(
             TEST_DATA.to_vec(),
             decoded_data,
-            "Converter did not correctly endcode or decode data."
+            "Converter did not correctly encode or decode data."
         );
     }
 
@@ -290,7 +292,7 @@ mod pricklybird_tests {
         assert_eq!(
             vec![0xDE_u8, 0xAD, 0xBE, 0xEF],
             convert_from_pricklybird("TUrF-Port-RUST-warn-vOid").unwrap(),
-            "Converter did not correctly decode upercase data."
+            "Converter did not correctly decode uppercase data."
         );
     }
 
@@ -340,8 +342,8 @@ mod pricklybird_tests {
         let edge_cases = vec![
             ("", "empty input"),
             ("orca", "input to short"),
-            ("a®¿a-orca", "non ASCII iput"),
-            ("gäsp-risk-king-orca-husk", "non ASCII iput"),
+            ("a®¿a-orca", "invalid characters in input"),
+            ("gäsp-risk-king-orca-husk", "invalid characters in input"),
             ("-risk-king-orca-husk", "incorrectly formatted input"),
             ("gasp-rock-king-orca-husk", "incorrect word in input"),
             ("flea- \t \t-full", "whitespace in input"),
