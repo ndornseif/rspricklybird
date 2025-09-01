@@ -11,7 +11,7 @@
 //! % echo "flea-flux-full" | prbiconv -b | xxd -ps
 //! 4243
 //! ```
-//! 
+//!
 //! To convert bytes to pricklybird use the `-p` flag.
 //! ```console
 //! % echo "4243" | xxd -r -p | prbiconv -p
@@ -23,7 +23,9 @@ use std::io::{self, Read, Write};
 
 use clap::Parser;
 
-use pricklybirdlib::{DecodeError, convert_from_pricklybird, convert_to_pricklybird};
+use pricklybirdlib::{
+    DecodeError, PRICKLYBIRD_VERSION, convert_from_pricklybird, convert_to_pricklybird,
+};
 
 /// The conversion failed.
 pub enum AppError {
@@ -69,7 +71,7 @@ impl fmt::Debug for AppError {
 #[command(
     name = clap::crate_name!(),
     version = clap::crate_version!(),
-    about = clap::crate_description!(),
+    about = format!("{} Implements pricklybird specification {}.",clap::crate_description!(), PRICKLYBIRD_VERSION),
 )]
 /// Collect arguments supplied via command line.
 struct Cli {
@@ -82,11 +84,10 @@ struct Cli {
     convert_to: bool,
 }
 
-
 /// Read from `input` and write to `output`.
 /// Attemps conversion from pricklybird string to bytes by default.
 /// Setting the `-p` flag will instead convert bytes to a pricklybird string.
-fn convert(cli: &Cli, mut input: impl Read, mut output: impl Write) -> Result<(), AppError>{
+fn convert(cli: &Cli, mut input: impl Read, mut output: impl Write) -> Result<(), AppError> {
     if cli.convert_to && cli.convert_from {
         return Err(AppError::ArgumentError(
             "Can not convert from and to pricklybird at the same time.".to_owned(),
@@ -106,7 +107,6 @@ fn convert(cli: &Cli, mut input: impl Read, mut output: impl Write) -> Result<()
         output.flush()?;
     }
     Ok(())
-
 }
 
 /// Read from stdin and output to stdout.
@@ -128,14 +128,17 @@ mod prbiconv_tests {
             convert_from: false,
             convert_to: true,
         };
-        
+
         let input = Cursor::new([0x42u8, 0x43]);
         let mut output = Cursor::new(Vec::new());
-        
+
         convert(&cli, input, &mut output).unwrap();
-        
+
         let output_words = String::from_utf8(output.into_inner()).unwrap();
-        assert_eq!("flea-flux-full", output_words, "prbiconv incorrectly converted 0x4243 to pricklybird string.");
+        assert_eq!(
+            "flea-flux-full", output_words,
+            "prbiconv incorrectly converted 0x4243 to pricklybird string."
+        );
     }
 
     #[test]
@@ -144,14 +147,18 @@ mod prbiconv_tests {
             convert_from: true,
             convert_to: false,
         };
-        
+
         let input = Cursor::new("flea-flux-full");
         let mut output = Cursor::new(Vec::new());
-        
+
         convert(&cli, input, &mut output).unwrap();
-        
+
         let result_bytes = output.into_inner();
-        assert_eq!(vec![0x42u8, 0x43], result_bytes, "prbiconv incorrectly converted 'flea-flux-full' to bytes.");
+        assert_eq!(
+            vec![0x42u8, 0x43],
+            result_bytes,
+            "prbiconv incorrectly converted 'flea-flux-full' to bytes."
+        );
     }
 
     #[test]
@@ -160,18 +167,15 @@ mod prbiconv_tests {
             convert_from: true,
             convert_to: true,
         };
-        
+
         let input = Cursor::new(Vec::new());
         let mut output = Cursor::new(Vec::new());
-        
+
         let result = convert(&cli, input, &mut output);
         assert!(result.is_err());
-        
+
         assert!(
-            matches!(
-                result,
-                Err(AppError::ArgumentError(_))
-            ),
+            matches!(result, Err(AppError::ArgumentError(_))),
             "prbiconv did not error with both `-p` and `-b` flags set."
         );
     }
