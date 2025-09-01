@@ -1,10 +1,9 @@
 [package]
 name = "prbiconv"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2024"
 description = "Command line tool to convert between binary data and pricklybird strings."
 license = "MIT"
-homepage = "https://github.com/ndornseif/rspricklybird/"
 repository = "https://github.com/ndornseif/rspricklybird/"
 readme = "../README.md"
 keywords = ["encoding", "binary-data", "standard", "cli"]
@@ -79,4 +78,4 @@ wildcard_dependencies = "warn"
 
 [dependencies]
 clap = { version = "4.5.32", features = ["derive", "cargo"] }
-pricklybirdlib = "1.0.0"
+pricklybirdlib = "1.0.2"
