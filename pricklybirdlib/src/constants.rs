@@ -62,7 +62,7 @@ pub const fn word_hash(word_first_letter: u8, word_last_letter: u8) -> usize {
 /// but with incorrect input where the first and last letter are `z`,
 /// the value might reach 26 ** 2 - 1 = 675.
 /// So we make the table 676 entries long to prevent out of bounds errors.
-const HASH_TABLE_SIZE: usize = 676;
+pub const HASH_TABLE_SIZE: usize = 676;
 
 /// Generate hash table by calculating hash for every word and populating
 /// the hash table position with that words byte value.
@@ -84,7 +84,7 @@ const fn generate_hash_table(byte_wordlist: &[[u8; 4]; 256]) -> [u8; HASH_TABLE_
 pub const HASH_TABLE: [u8; HASH_TABLE_SIZE] = generate_hash_table(&BYTE_WORDLIST);
 
 /// Polynominal used in CRC-8 calculation.
-const CRC8_POLY: u8 = 0x1D;
+pub const CRC8_POLY: u8 = 0x1D;
 /// Number of different possible values in a byte.
 const N_BYTES: usize = 1 << u8::BITS;
 
